@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">DinerFinder</string>
     <string name="title_activity_maps">DinerFinder</string>
+    <string name="google_places_key">AIzaSyB270w76MC-2oRlETmuUZahldB5oyNZjtk</string>
+    <string name="location_text">"Latitude: %1$.4f \n Longitude: %2$.4f
+ \n Timestamp: %3$tr"</string>
 </resources>
