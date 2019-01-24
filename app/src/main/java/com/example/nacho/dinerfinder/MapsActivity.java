@@ -49,11 +49,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleApiClient mGoogleApiClient;
     LatLng latLngCurrent;
     private Location mLastLocation;
-    private Marker mCurrLocationMarker;
     private LocationRequest mLocationRequest;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private FusedLocationProviderClient mFusedLocationClient;
-
     private LocationCallback mLocationCallback;
 
     @Override
@@ -72,12 +70,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         };
     }
-
-
+    
     public void findRestaurants(View v) {
         StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         stringBuilder.append("location=" + mLastLocation.getLatitude() + "," + mLastLocation.getLongitude());
-        stringBuilder.append("&radius=" + 800);
+        stringBuilder.append("&radius=" + 1000);
         stringBuilder.append("&keyword=" + "restaurant");
         stringBuilder.append("&key=" + getResources().getString(R.string.google_places_key));
 
@@ -102,13 +99,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerOptions.position(latLngCurrent);
         markerOptions.title("Current Location");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        mCurrLocationMarker = mMap.addMarker(markerOptions);
-
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLngCurrent));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
     }
-
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -168,6 +161,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     public void onSuccess(Location location) {
                         if (location != null) {
                             mLastLocation = location;
+                            Toast.makeText(getApplicationContext(), "Location was found", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
